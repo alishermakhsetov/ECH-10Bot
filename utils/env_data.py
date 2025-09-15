@@ -25,8 +25,3 @@ class Config:
     bot = BotConfig()
     db = DBConfig()
     web = WEBConfig()
-
-
-
-
-

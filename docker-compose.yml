@@ -1,27 +1,38 @@
-version: "2.32.4"
-
+version: "3.8"
 
 services:
   bot:
     build: .
-    image: test_bot:alpine
     container_name: test_con
     restart: always
     depends_on:
       - pg
-    command: sh -c "alembic revision --autogenerate -m 'Create a baseline migrations' &&
-                   alembic upgrade head &&
-                   python3 main.py"
+    environment:
+      - DB_HOST=pg
+    command: sh -c "alembic upgrade head && python3 main.py"
+
+  web:
+    build: .
+    container_name: web_con
+    restart: always
+    depends_on:
+      - pg
+    environment:
+      - DB_HOST=pg
+    ports:
+      - "8000:8000"
+    command: sh -c "python3 web/app.py"
 
   pg:
     image: postgres:alpine
     container_name: pg_con
     restart: always
     environment:
+      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1
+      POSTGRES_DB: ech10db
     ports:
-      - "5432:5432"
-
+      - "5433:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
 

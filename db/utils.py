@@ -6,7 +6,8 @@ from sqlalchemy.orm import declared_attr
 
 from db import db, Base
 
-db.init() # create engine
+db.init()  # create engine
+
 
 # ----------------------------- ABSTRACTS ----------------------------------
 class AbstractClass:
@@ -53,7 +54,6 @@ class AbstractClass:
         await cls.commit()
         return True
 
-
     @classmethod
     async def get_all(cls, order_fields: list[str] = None):
         query = select(cls)
@@ -64,13 +64,17 @@ class AbstractClass:
         for i in objects.all():
             result.append(i[0])
         return result
-tz=  "TIMEZONE('Asia/Tashkent', NOW())"
+
+
+tz = "TIMEZONE('Asia/Tashkent', NOW())"
+
+
 class CreatedModel(Base, AbstractClass):
     @declared_attr
     def __tablename__(cls):
         return cls.__name__.lower() + 's'
 
     __abstract__ = True
-    id = Column(Integer,primary_key=True,autoincrement=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     created_at = Column(DateTime(timezone=True), server_default=text(tz))
-    updated_at = Column(DateTime(timezone=True), server_default=text(tz),onupdate=func.now())
+    updated_at = Column(DateTime(timezone=True), server_default=text(tz), onupdate=func.now())
