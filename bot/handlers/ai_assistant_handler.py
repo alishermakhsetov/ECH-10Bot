@@ -18,6 +18,7 @@ from sqlalchemy import select
 # AI Libraries
 import google.generativeai as genai
 from groq import Groq
+from together import Together
 
 from db.models import User
 from bot.states import AIStates  # Import qilindi
@@ -49,6 +50,7 @@ ai_router = Router()
 # Configure AI services
 genai.configure(api_key=os.getenv('GOOGLE_API_KEY'))
 groq_client = Groq(api_key=os.getenv('GROQ_API_KEY'))
+together_client = Together(api_key=os.getenv('TOGETHER_API_KEY'))
 
 # 🎯 CONSTANTS
 MAX_MESSAGES_PER_USER = 50
@@ -60,6 +62,7 @@ DELETE_CHUNK_SIZE = 20
 # AI Timeout constants
 AI_REQUEST_TIMEOUT = 35  # sekund
 GROQ_REQUEST_TIMEOUT = 30  # sekund (Groq tezroq)
+TOGETHER_REQUEST_TIMEOUT = 40  # sekund (Together.ai uchun)
 MAX_RETRIES_ON_TIMEOUT = 2
 LONG_PROCESSING_WARNING_TIME = 20  # sekund
 
@@ -68,13 +71,14 @@ user_requests: Dict[int, List[float]] = {}
 user_conversations: Dict[int, List[Dict[str, str]]] = {}
 
 # Per user limits
-MAX_USER_REQUESTS_HOUR = 10
-MAX_USER_REQUESTS_DAY = 30
+MAX_USER_REQUESTS_HOUR = 15  # Together.ai uchun ko'proq
+MAX_USER_REQUESTS_DAY = 50
 
 # Service usage tracking
 service_usage = {
-    "google": {"requests": [], "max_hour": 500, "max_day": 1000},
-    "groq": {"requests": [], "max_hour": 2000, "max_day": 4000}
+    "google": {"requests": [], "max_hour": 100, "max_day": 1000},
+    "groq": {"requests": [], "max_hour": 200, "max_day": 2000},
+    "together": {"requests": [], "max_hour": 30, "max_day": 300}
 }
 
 
@@ -365,7 +369,7 @@ Qo'shimcha ma'lumot kerak bo'lsa, foydali manbalarni taklif qiling."""
         # ⏰ TIMEOUT PROTECTION
         def create_completion():
             return groq_client.chat.completions.create(
-                model="llama3-8b-8192",
+                model="llama-3.1-8b-instant",  # Yangilangan model
                 messages=messages,
                 max_tokens=800,
                 temperature=0.7
@@ -401,22 +405,102 @@ Qo'shimcha ma'lumot kerak bo'lsa, foydali manbalarni taklif qiling."""
         return False, str(e)
 
 
+async def call_together_api(question: str, user_name: str, user_id: int) -> Tuple[bool, str]:
+    """Call Together.ai API as fallback"""
+    try:
+        messages = [
+            {
+                "role": "system",
+                "content": """Sen professional AI yordamchisiz. O'zbek tilida javob ber.
+Sifatli, aniq va foydali javoblar ber. Foydalanuvchiga yordam berish uchun bor.
+Javoblarni tushunishga oson qilib ber. Agar savol murakkab bo'lsa, bosqichma-bosqich tushuntir.
+Markdown formatini ishlatma, oddiy matn formatida javob ber."""
+            }
+        ]
+
+        # Add conversation history
+        if user_id in user_conversations:
+            for msg in user_conversations[user_id][-8:]:
+                if msg["role"] == "user":
+                    messages.append({"role": "user", "content": msg["content"]})
+                else:
+                    messages.append({"role": "assistant", "content": msg["content"]})
+
+        # Add current question
+        messages.append({
+            "role": "user",
+            "content": f"Foydalanuvchi: {user_name}\nSavol: {question}"
+        })
+
+        def create_completion():
+            return together_client.chat.completions.create(
+                model="meta-llama/Llama-3-70b-chat-hf",
+                messages=messages,
+                max_tokens=800,
+                temperature=0.7,
+                top_p=0.9,
+                stream=False
+            )
+
+        response = await asyncio.wait_for(
+            asyncio.to_thread(create_completion),
+            timeout=TOGETHER_REQUEST_TIMEOUT
+        )
+
+        if response.choices and response.choices[0].message:
+            service_usage["together"]["requests"].append(time.time())
+
+            if user_id not in user_conversations:
+                user_conversations[user_id] = []
+
+            user_conversations[user_id].append({
+                "role": "user",
+                "content": question,
+                "timestamp": time.time()
+            })
+            user_conversations[user_id].append({
+                "role": "assistant",
+                "content": response.choices[0].message.content.strip(),
+                "timestamp": time.time()
+            })
+
+            if len(user_conversations[user_id]) > 20:
+                user_conversations[user_id] = user_conversations[user_id][-20:]
+
+            return True, response.choices[0].message.content.strip()
+        else:
+            return False, "Together AI javob bermadi"
+
+    except asyncio.TimeoutError:
+        print(f"Together AI timeout for user {user_id}")
+        return False, "AI xizmati javob bermadi (timeout)"
+    except Exception as e:
+        print(f"Together AI Error: {e}")
+        return False, f"Xatolik yuz berdi: {str(e)}"
+
+
 async def get_ai_response_with_retry(question: str, user_name: str, user_id: int) -> Tuple[bool, str, str]:
-    """Get AI response with retry mechanism and timeout protection"""
+    """Get AI response with failover strategy: Google -> Groq -> Together.ai"""
 
     for attempt in range(MAX_RETRIES_ON_TIMEOUT):
         try:
-            # Try Google Gemini first
+            # 1. Try Google Gemini first (tekin)
             if can_use_service("google"):
                 success, response = await call_google_gemini(question, user_name, user_id)
                 if success:
                     return True, response, "Google Gemini"
 
-            # Fallback to Groq
+            # 2. Fallback to Groq (tekin)
             if can_use_service("groq"):
                 success, response = await call_groq_api(question, user_name, user_id)
                 if success:
                     return True, response, "Groq"
+
+            # 3. Final fallback to Together.ai (pullik, lekin ishonchli)
+            if can_use_service("together"):
+                success, response = await call_together_api(question, user_name, user_id)
+                if success:
+                    return True, response, "Together AI (Llama-3-70B)"
 
         except Exception as e:
             print(f"AI request attempt {attempt + 1} failed: {e}")
@@ -529,7 +613,7 @@ async def process_text_question(message: Message, state: FSMContext):
         # ⌨️ Typing action before AI call
         await message.bot.send_chat_action(chat_id=user_id, action="typing")
 
-        # 🚀 Get AI response with retry and timeout protection
+        # 🚀 Get AI response with failover strategy
         success, ai_response, service_used = await get_ai_response_with_retry(message.text, user_name, user_id)
 
         # Cancel warning task
@@ -586,14 +670,17 @@ async def view_limits_handler(message: Message, state: FSMContext):
     # Service stats
     google_reqs = service_usage["google"]["requests"]
     groq_reqs = service_usage["groq"]["requests"]
+    together_reqs = service_usage["together"]["requests"]
 
     google_hour = len([req for req in google_reqs if req > hour_ago])
     groq_hour = len([req for req in groq_reqs if req > hour_ago])
+    together_hour = len([req for req in together_reqs if req > hour_ago])
 
     text = ai_limits_status_text(
         user_hour, user_day,
         google_hour, len(google_reqs),
         groq_hour, len(groq_reqs),
+        together_hour, len(together_reqs),
         MAX_USER_REQUESTS_HOUR,
         MAX_USER_REQUESTS_DAY
     )

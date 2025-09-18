@@ -1,3 +1,3 @@
 import bcrypt
 
-print(bcrypt.hashpw("admin1234".encode(), bcrypt.gensalt()))
+print(bcrypt.hashpw("admin112233".encode(), bcrypt.gensalt()))

@@ -909,6 +909,7 @@ def _extract_year_number(year_name: str) -> int:
 
 
 # ============================ ai_assistant_handler ============================
+# bot/utils/texts.py - AI Assistant yangilangan qismi
 
 def ai_timeout_text() -> str:
     """AI timeout text"""
@@ -954,7 +955,7 @@ def ai_welcome_text(user=None) -> str:
         "• 🎨 San'at va madaniyat\n"
         "• 🌍 Sayohat va geografiya\n"
         "• ⚡ Va boshqa mavzular...\n\n"
-        "🔄 <b>AI xizmatlari:</b> Google Gemini + Groq\n\n"
+        "🔄 <b>AI xizmatlari:</b> \nGoogle Gemini + Groq + Together\n\n"
         "💬 <i>Savolingizni yuboring ⬇️</i>"
     ).format(user_info=user_info)
 
@@ -1024,22 +1025,27 @@ def ai_no_services_text() -> str:
 
 
 def ai_limits_status_text(user_hour: int, user_day: int, google_hour: int, google_day: int,
-                         groq_hour: int, groq_day: int, max_hour: int, max_day: int) -> str:
-    """Show AI limits status"""
+                         groq_hour: int, groq_day: int, together_hour: int, together_day: int,
+                         max_hour: int, max_day: int) -> str:
+    """Show AI limits status with Together.ai"""
     return _(
         "📊 <b>SIZNING LIMITLARINGIZ</b>\n"
         "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
         "👤 <b>Shaxsiy limitlar:</b>\n"
         "🕐 Soatlik: <b>{user_hour}/{max_hour}</b> ta so'rov\n"
         "📆 Kunlik: <b>{user_day}/{max_day}</b> ta so'rov\n\n"
-        "🤖 <b>Umumiy AI xizmatlar holati:</b>\n"
+        "🤖 <b>AI xizmatlar holati:</b>\n"
         "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
-        "🟢 <b>Google Gemini:</b>\n"
-        "   🕐 Soatlik: <b>{google_hour}/500</b> ta\n"
+        "🟢 <b>Google Gemini:</b> (Tekin)\n"
+        "   🕐 Soatlik: <b>{google_hour}/100</b> ta\n"
         "   📆 Kunlik: <b>{google_day}/1000</b> ta\n\n"
-        "🟢 <b>Groq AI:</b>\n"
-        "   🕐 Soatlik: <b>{groq_hour}/2000</b> ta\n"
-        "   📆 Kunlik: <b>{groq_day}/4000</b> ta\n\n"
+        "🟠 <b>Groq AI:</b> (Tekin)\n"
+        "   🕐 Soatlik: <b>{groq_hour}/200</b> ta\n"
+        "   📆 Kunlik: <b>{groq_day}/2000</b> ta\n\n"
+        "🔵 <b>Together:</b>\n"
+        "   🕐 Soatlik: <b>{together_hour}/30</b> ta\n"
+        "   📆 Kunlik: <b>{together_day}/300</b> ta\n\n"
+        "⚡ <b>Prioritet:</b> Google → Groq → Together\n"
         "🔄 <i>Limitlar har soat yangilanadi</i>\n"
         "⏰ <i>Kunlik limitlar yarim tunda yangilanadi</i>"
     ).format(
@@ -1050,7 +1056,9 @@ def ai_limits_status_text(user_hour: int, user_day: int, google_hour: int, googl
         google_hour=google_hour,
         google_day=google_day,
         groq_hour=groq_hour,
-        groq_day=groq_day
+        groq_day=groq_day,
+        together_hour=together_hour,
+        together_day=together_day
     )
 
 
@@ -1105,7 +1113,6 @@ def ai_input_duplicate_text() -> str:
         "🔄 <b>Bu savolni yaqinda berdingiz!</b>\n\n"
         "💡 <i>Boshqa savol bering yoki batafsil so'rang</i>"
     )
-
 
 # ============================ library_handler ============================
 

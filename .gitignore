@@ -39,3 +39,14 @@ fabric.properties
 .idea/
 .venv
 .env
+
+# Qo'shimcha Python fayllar
+*.log
+*.db
+*.sqlite3
+migrations/versions/*.pyc
+__pycache__
+.pytest_cache
+
+# Docker
+docker-compose.override.yml

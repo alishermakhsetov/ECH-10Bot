@@ -1,2 +1,11 @@
-.idea
+.git
+.gitignore
+README.md
+Dockerfile
+.dockerignore
 .venv
+__pycache__
+*.pyc
+.pytest_cache
+.coverage
+.env.example
