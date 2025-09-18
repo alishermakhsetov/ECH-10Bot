@@ -42,7 +42,7 @@ def get_help_text(admin_link="@admin"):
     """Help komandasi uchun matn"""
     return _(
     f"""🤖 <b>BOT IMKONIYATLARI:</b>
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━
 🧠 <b>Test Bo'limi</b>
     • Malaka darajasi bo'yicha bilim sinovlari
 
@@ -77,7 +77,7 @@ def get_help_text(admin_link="@admin"):
        
 🌐 <b>Tilni O'zgartirish</b>
     • Interfeys tilini tanlash imkoniyati
-━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━━━━━━━━━
 💬 <b>Murojaat uchun:</b> <a href="{admin_link}"><b>Admin bilan bog'lanish</b></a>""")
 
 
@@ -107,7 +107,7 @@ def test_no_categories_text() -> str:
 def test_categories_prompt() -> str:
     return _(
         "🧠 <b>TEST BO'LIMI</b>\n"
-        "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n\n"
+        "➖➖➖➖➖➖➖➖➖➖➖➖\n\n"
         "👇 <b>Test Bo'limini tanlang:</b>\n\n"
     )
 
@@ -250,7 +250,7 @@ def safety_department_statistics_header_text(department_name: str) -> str:
     return _(
         "📈 <b>{department_name}: Statistika</b>\n\n"
         "🔢 <b>Himoya vositalari soni:</b>\n"
-        "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n"
+        "➖➖➖➖➖➖➖➖➖➖➖➖\n"
     ).format(department_name=department_name)
 
 def safety_department_statistics_item_text(name: str, count: int) -> str:
@@ -260,7 +260,7 @@ def safety_department_statistics_item_text(name: str, count: int) -> str:
 def safety_department_statistics_total_text(total: int) -> str:
     """Jami statistika"""
     return _(
-        "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n"
+        "➖➖➖➖➖➖➖➖➖➖➖➖\n"
         "🧰 <b>Jami: <i>{total}</i> ta</b>"
     ).format(total=total)
 
@@ -277,7 +277,7 @@ def safety_departments_prompt() -> str:
     """Department tanlash uchun"""
     return _(
         "🦺 <b>HIMOY VOSTALAR BO'LIMI</b>\n"
-        "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n\n"
+        "➖➖➖➖➖➖➖➖➖➖➖➖\n\n"
         "📋 Quyidagi Bo'limlardan birini tanlang:\n"
     )
 
@@ -296,7 +296,7 @@ def safety_areas_prompt(department_name: str) -> str:
     return _(
         "🏢 <b>Bo'lim: {department_name}</b>\n\n"
         "📍 Quyidagi Hududlardan birini tanlang:\n"
-        "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖"
+        "➖➖➖➖➖➖➖➖➖➖➖➖"
     ).format(department_name=department_name)
 
 
@@ -306,7 +306,7 @@ def safety_area_with_image_caption(department_name: str, area_name: str) -> str:
         "🏢 <b>Bo'lim: {department_name}</b>\n\n"
         "📍 <b>Hudud: {area_name}</b>\n\n"
         "🏛️ Quyidagi Inshootlardan birini tanlang:\n"
-        "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖"
+        "➖➖➖➖➖➖➖➖➖➖➖➖"
     ).format(department_name=department_name, area_name=area_name)
 
 
@@ -325,14 +325,14 @@ def safety_facility_with_image_caption(department_name: str, area_name: str, fac
         "🏢 <b>Bo'lim: {department_name}</b>\n"
         "📍 <b>Hudud: {area_name}</b>\n"
         "🏛️ <b>Inshoot: {facility_name}</b>\n"
-        "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n"
+        "➖➖➖➖➖➖➖➖➖➖➖➖\n"
         "⚠️ <b>Himoya vositalari holati:</b>\n\n"
         "🔵 Muddati xavfsiz (30 kundan ko'p)\n"
         "🟢 Muddati kamaymoqda (30 kundan kam)\n"
         "🟡 Muddati yaqinlashdi (14 kundan kam)\n"
         "🔴 Muddati juda yaqin (5 kundan kam)\n"
         "⛔️ Muddati tugagan\n"
-        "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖"
+        "➖➖➖➖➖➖➖➖➖➖➖➖"
     ).format(
         department_name=department_name,
         area_name=area_name,
@@ -391,12 +391,12 @@ def safety_equipment_detail_text(
         "🏢 <b>Bo'lim: {department_name}</b>\n"
         "📍 <b>Hudud: {area_name}</b>\n"
         "🏛️ <b>Inshoot: {facility_name}</b>\n"
-        "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n"
+        "➖➖➖➖➖➖➖➖➖➖➖➖\n"
         "🦺  <b>HIMOYA VOSITASI</b>\n\n"
         "📌 <b>Nomi:</b> {catalog_name}\n"
         "🔢 <b>Seriya raqami:</b> №{serial_number}\n"
         "📝 <b>Tavsifi:</b> {catalog_description}\n"
-        "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n"
+        "➖➖➖➖➖➖➖➖➖➖➖➖\n"
         "📅 <b>MUDDAT MA'LUMOTLARI</b>\n\n"
         "⏰ <b>Tugash sanasi:</b> {expire_date}\n"
         "⌛ <b>Qolgan muddat:</b> {days_text}\n\n"
@@ -419,7 +419,7 @@ def safety_statistics_text(department_name: str, statistics: list) -> str:
     text = _(
         "📈 <b>{department_name}: Statistika</b>\n\n"
         "🔢 <b>Himoya vositalari soni:</b>\n"
-        "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n"
+        "➖➖➖➖➖➖➖➖➖➖➖➖\n"
     ).format(department_name=department_name)
 
     # Umumiy soni
@@ -429,7 +429,7 @@ def safety_statistics_text(department_name: str, statistics: list) -> str:
     for stat in statistics:
         text += f"🔸 <b>{stat.name}: {stat.count} ta</b>\n"
 
-    text += f"➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n"
+    text += f"➖➖➖➖➖➖➖➖➖➖➖➖\n"
     text += f"🧰 <b>Jami: <i>{total}</i> ta</b>"
 
     return text
@@ -451,7 +451,7 @@ def exam_no_data_text(full_name: str, phone_number: str) -> str:
     return _(
         "👤 <b>To'liq Ism:  <i>{full_name}</i></b>\n"
         "📞 <b>Telefon:  <i>{phone_number}</i></b>\n"
-        "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n"
+        "➖➖➖➖➖➖➖➖➖➖➖➖\n"
         "📅 <b>Oxirgi imtihon:</b> Ma'lumot yo'q\n"
         "⏰ <b>Keyingi imtihon:</b> Ma'lumot yo'q\n\n"
         "❓ <b>Imtihon ma'lumotlari kiritilmagan</b>"
@@ -463,7 +463,7 @@ def exam_user_info_text(full_name: str, phone_number: str, last_exam: str, next_
     return _(
         "👤 <b>To'liq Ism:  <i>{full_name}</i></b>\n"
         "📞 <b>Telefon:  <i>{phone_number}</i></b>\n"
-        "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n"
+        "➖➖➖➖➖➖➖➖➖➖➖➖\n"
         "📅 <b>Oxirgi imtihon:</b> {last_exam}\n"
         "⏰ <b>Keyingi imtihon:</b> {next_exam}\n\n"
         "{status_icon} <b>{status_text}</b>"
@@ -492,7 +492,7 @@ def exam_statistics_text(total: int, overdue: int, urgent: int, warning: int, no
                          no_data: int) -> str:
     return _(
         "📈 <b>STATISTIKA:</b>\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        "━━━━━━━━━━━━━━━━━━━━\n"
         "👥 <b>Jami Xodimlar soni:  <i>{total}</i></b>\n"
         "⛔ <b>Muddati o'tgan:  <i>{overdue}</i></b>\n"
         "🔴 <b>Juda yaqin (5 kundan kam):  <i>{urgent}</i></b>\n"
@@ -540,7 +540,7 @@ def get_category_header_text(category: str, total_items: int, page: int, total_p
 
     return _(
         "{header}\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        "━━━━━━━━━━━━━━━━━━━━\n"
         "👥 <b>Jami: <i>{total}</i> ta</b> ┃ 📄 <b>Sahifa: <i>{page}/{total_pages}</i></b>\n\n"
     ).format(header=header, total=total_items, page=page, total_pages=total_pages)
 
@@ -548,7 +548,7 @@ def get_category_header_text(category: str, total_items: int, page: int, total_p
 def exam_search_footer_text(count: int) -> str:
     """Qidiruv natijalarining pastki qismi uchun matn"""
     return _(
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        "━━━━━━━━━━━━━━━━━━━━\n"
         "📋 <b>Topildi: <i>{count}</i> ta</b>  ┃  ").format(count=count)
 
 
@@ -646,7 +646,7 @@ def exam_search_pagination_text(page: int, total_pages: int) -> str:
 
 def exam_search_divider() -> str:
     """Qidiruv uchun ajratuvchi chiziq"""
-    return "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+    return "━━━━━━━━━━━━━━━━━━━━\n"
 
 
 def format_search_user_result(index: int, user, exam_schedule, today) -> str:
@@ -713,7 +713,7 @@ def accident_main_text() -> str:
     """Baxtsiz hodisalar asosiy menyu"""
     return _(
         "⚠️ <b>BAXTSIZ HODISALAR BO'LIMI</b>\n"
-        "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n\n"
+        "➖➖➖➖➖➖➖➖➖➖➖➖\n\n"
         "📆 <b>Quyidagi yillardan birini tanlang:</b>\n"
         "ℹ️ <i>(qavsda shu yildagi malumotlar soni)</i>\n"
     )
@@ -732,7 +732,7 @@ def accident_year_header_text(year_name: str, total: int, page: int, total_pages
     """Yil bo'yicha hodisalar header"""
     text = _(
         "📆 <b>{year_name}</b>\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        "━━━━━━━━━━━━━━━━━━━━\n"
         "🔢 <b>Jami malumotlar soni:</b> <i>{total}</i> <b>ta</b>"
     ).format(year_name=year_name.upper(), total=total)
 
@@ -751,7 +751,7 @@ def accident_no_accidents_text(year_name: str) -> str:
     """Yilda hodisa yo'q"""
     return _(
         "📆 <b>{year_name}</b>\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        "━━━━━━━━━━━━━━━━━━━━\n\n"
         "❌ <b>Hozircha bu bo'limdagi baxtsiz hodisalar ma'lumotlari mavjud emas.</b>\n"
         "📥 Tez orada ma'lumotlar qo'shiladi\n\n"
         "🙏 <i>Iltimos, keyinroq qayta urinib ko'ring</i>"
@@ -762,7 +762,7 @@ def accident_detail_text(title: str, year: str, category: str, description: str 
     """Accident detail text (separate message)"""
     text = _(
         "📋 <b>{title}</b>\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        "━━━━━━━━━━━━━━━━━━━━\n\n"
         "📆 <b>Yil:</b> {year}\n"
         "📂 <b>Kategoriya:</b> {category}"
     ).format(title=title, year=year, category=category)
@@ -777,7 +777,7 @@ def accident_statistics_main_text(category_stats: List[Tuple], year_stats: List[
     """Umumiy statistika teksti (Xisobat kategoriyasi chiqarilgan)"""
     text = _(
         "📊 <b>UMUMIY STATISTIKA</b>\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        "━━━━━━━━━━━━━━━━━━━━\n\n"
     )
 
     # Jami hodisalar (Xisobat kategoriyasiz)
@@ -788,7 +788,7 @@ def accident_statistics_main_text(category_stats: List[Tuple], year_stats: List[
     # Yillar bo'yicha trend (oxirgi 5 yil)
     if year_stats and len(year_stats) >= 1:
         text += _("📅 <b>Yillik dinamika:</b>\n")
-        text += "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        text += "━━━━━━━━━━━━━━━━━━━━\n"
 
         # Sort years by year number for proper comparison
         sorted_years = sorted(year_stats, key=lambda x: _extract_year_number(x.name), reverse=True)
@@ -848,7 +848,7 @@ def accident_statistics_main_text(category_stats: List[Tuple], year_stats: List[
 
             # Add separator line after each year (except last)
             if i < len(sorted_years[:5]) - 1:
-                text += "\n━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                text += "\n━━━━━━━━━━━━━━━━━━━━\n"
             else:
                 text += "\n"
 
@@ -859,14 +859,14 @@ def accident_statistics_year_text(year_name: str, total: int, category_stats: Li
     """Yil bo'yicha statistika (Xisobat kategoriyasiz)"""
     text = _(
         "📊 <b>{year_name} STATISTIKASI</b>\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        "━━━━━━━━━━━━━━━━━━━━\n\n"
         "📈 <b>Jami Baxtsiz Hodisalar soni:</b> <i>{total}</i> <b>ta</b>\n"
         "ℹ️ <i>(Xisobat hujjatlari hisobga olinmagan)</i>\n\n"
     ).format(year_name=year_name.upper(), total=total)
 
     if category_stats and total > 0:
         text += _("📂 <b>Kategoriyalar bo'yicha taqsimot:</b>\n")
-        text += "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        text += "━━━━━━━━━━━━━━━━━━━━\n"
 
         for stat in category_stats:
             percentage = (stat.count / total * 100) if total > 0 else 0
@@ -896,7 +896,7 @@ def accident_no_statistics_text() -> str:
     """Ma'lumot yo'q statistika"""
     return _(
         "📊 <b>UMUMIY STATISTIKA</b>\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        "━━━━━━━━━━━━━━━━━━━━\n\n"
         "❌ <b>Hozircha statistika ma'lumotlari mavjud emas.</b>\n"
         "📥 Tez orada ma'lumotlar qo'shiladi"
     )
@@ -942,7 +942,7 @@ def ai_welcome_text(user=None) -> str:
 
     return _(
         "🤖 <b>AI YORDAMCHI</b>\n"
-        "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n\n"
+        "➖➖➖➖➖➖➖➖➖➖➖➖\n\n"
         "{user_info}"
         "💬 <b>Savollaringizni Matn shaklida yuboring!</b>\n"
         "🤖 <b>Sun'iy intellekt sizga javob beradi</b>\n\n"
@@ -972,7 +972,7 @@ def ai_waiting_text() -> str:
 def ai_response_text(ai_response: str, service_used: str = None) -> str:
     """Format AI response"""
     text = (f"🤖 <b>AI Javobi:</b>\n"
-            f"━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+            f"━━━━━━━━━━━━━━━━━━━━\n\n"
             f"{ai_response}"
             )
 
@@ -1030,12 +1030,12 @@ def ai_limits_status_text(user_hour: int, user_day: int, google_hour: int, googl
     """Show AI limits status with Together.ai"""
     return _(
         "📊 <b>SIZNING LIMITLARINGIZ</b>\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        "━━━━━━━━━━━━━━━━━━━━\n\n"
         "👤 <b>Shaxsiy limitlar:</b>\n"
         "🕐 Soatlik: <b>{user_hour}/{max_hour}</b> ta so'rov\n"
         "📆 Kunlik: <b>{user_day}/{max_day}</b> ta so'rov\n\n"
         "🤖 <b>AI xizmatlar holati:</b>\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        "━━━━━━━━━━━━━━━━━━━━\n\n"
         "🟢 <b>Google Gemini:</b> (Tekin)\n"
         "   🕐 Soatlik: <b>{google_hour}/100</b> ta\n"
         "   📆 Kunlik: <b>{google_day}/1000</b> ta\n\n"
@@ -1141,7 +1141,7 @@ def library_main_text() -> str:
     """Kutubxona asosiy menyu"""
     return _(
         "📚 <b>KUTUBXONA BO'LIMI</b>\n"
-        "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n\n"
+        "➖➖➖➖➖➖➖➖➖➖➖➖\n\n"
         "📂 <b>Quyidagi bo'limlardan birini tanlang:</b>\n\n"
         "💭 <i>{quote}</i>"
     ).format(quote=get_random_book_quote())
@@ -1177,7 +1177,7 @@ def library_categories_text(page: int, total_pages: int) -> str:
     """Categories pagination header"""
     text = _(
         "📚 <b>KUTUBXONA KATEGORIYALARI</b>\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        "━━━━━━━━━━━━━━━━━━━━\n"
     )
 
     if total_pages > 1:
@@ -1195,7 +1195,7 @@ def library_books_text(category_name: str, total: int, page: int, total_pages: i
     """Books list header"""
     text = _(
         "📂 <b>{category_name}</b>\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        "━━━━━━━━━━━━━━━━━━━━\n"
         "📚 <b>Jami kitoblar:</b> <i>{total} ta</i>"
     ).format(category_name=category_name.upper(), total=total)
 
@@ -1214,7 +1214,7 @@ def library_no_books_text(category_name: str) -> str:
     """Kategoriyada kitob yo'q"""
     return _(
         "📂 <b>{category_name}</b>\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        "━━━━━━━━━━━━━━━━━━━━\n\n"
         "❌ <b>Hozircha bu bo'limda Kitoblar mavjud emas.</b>\n"
         "📥 Tez orada ma'lumotlar qo'shiladi\n\n"
         "🙏 <i>Iltimos, keyinroq qayta urinib ko'ring</i>"
@@ -1225,7 +1225,7 @@ def library_book_detail_text(title: str, category: str, description: str = None)
     """Book detail text"""
     text = _(
         "📖 <b>{title}</b>\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        "━━━━━━━━━━━━━━━━━━━━\n"
         "📂 <b>Kategoriya:</b> {category}"
     ).format(title=title, category=category)
 
@@ -1241,13 +1241,13 @@ def library_statistics_text(total_books: int, category_stats: List[Tuple]) -> st
     """Kutubxona statistika teksti"""
     text = _(
         "📊 <b>KUTUBXONA STATISTIKASI</b>\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        "━━━━━━━━━━━━━━━━━━━━\n\n"
         "📚 <b>Jami kitoblar soni:</b> <i>{total} ta</i>\n"
     ).format(total=total_books)
 
     if category_stats and total_books > 0:
         text += _("📂 <b>Bo'limlar bo'yicha taqsimot:</b>\n")
-        text += "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        text += "━━━━━━━━━━━━━━━━━━━━\n"
 
         for stat in category_stats:
             if stat.count > 0:  # Only show categories with books
@@ -1276,7 +1276,7 @@ def library_no_statistics_text() -> str:
     """Ma'lumot yo'q statistika"""
     return _(
         "📊 <b>KUTUBXONA STATISTIKASI</b>\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        "━━━━━━━━━━━━━━━━━━━━\n\n"
         "❌ <b>Hozircha Statistika ma'lumotlari mavjud emas.</b>\n"
         "📥 Tez orada ma'lumotlar qo'shiladi"
     )
@@ -1294,7 +1294,7 @@ def video_main_text() -> str:
     """Video roliklar asosiy menyu"""
     return _(
         "🎥 <b>VIDEO MATERIALLAR BO'LIMI</b>\n"
-        "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n\n"
+        "➖➖➖➖➖➖➖➖➖➖➖➖\n\n"
         "📂 <b>Quyidagi bo'limlardan birini tanlang:</b>"
     )
 
@@ -1312,7 +1312,7 @@ def video_categories_text(page: int, total_pages: int) -> str:
     """Categories pagination header"""
     text = _(
         "🎥 <b>VIDEO KATEGORIYALARI</b>\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        "━━━━━━━━━━━━━━━━━━━━\n"
     )
 
     if total_pages > 1:
@@ -1330,7 +1330,7 @@ def video_list_text(category_name: str, total: int, page: int, total_pages: int)
     """Videos list header"""
     text = _(
         "📂 <b>{category_name}</b>\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        "━━━━━━━━━━━━━━━━━━━━\n"
         "🎬 <b>Jami videolar:</b> <i>{total} ta</i>"
     ).format(category_name=category_name.upper(), total=total)
 
@@ -1349,7 +1349,7 @@ def video_no_videos_text(category_name: str) -> str:
     """Kategoriyada video yo'q"""
     return _(
         "📂 <b>{category_name}</b>\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        "━━━━━━━━━━━━━━━━━━━━\n\n"
         "❌ <b>Hozircha bu bo'limda Videolar mavjud emas.</b>\n"
         "📥 Tez orada ma'lumotlar qo'shiladi\n\n"
         "🙏 <i>Iltimos, keyinroq qayta urinib ko'ring</i>"
@@ -1360,7 +1360,7 @@ def video_detail_text(title: str, category: str, description: str = None) -> str
     """Video detail text"""
     text = _(
         "🎬 <b>{title}</b>\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        "━━━━━━━━━━━━━━━━━━━━\n"
         "📂 <b>Kategoriya:</b> {category}"
     ).format(title=title, category=category)
 
@@ -1376,13 +1376,13 @@ def video_statistics_text(total_videos: int, category_stats: List[Tuple]) -> str
     """Video statistika teksti"""
     text = _(
         "📊 <b>VIDEO MATERIALLAR STATISTIKASI</b>\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        "━━━━━━━━━━━━━━━━━━━━\n\n"
         "🎬 <b>Jami videolar soni:</b> <i>{total} ta</i>\n"
     ).format(total=total_videos)
 
     if category_stats and total_videos > 0:
         text += _("📂 <b>Bo'limlar bo'yicha taqsimot:</b>\n")
-        text += "━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        text += "━━━━━━━━━━━━━━━━━━━━\n"
 
         for stat in category_stats:
             if stat.count > 0:  # Only show categories with videos
@@ -1411,7 +1411,7 @@ def video_no_statistics_text() -> str:
     """Ma'lumot yo'q statistika"""
     return _(
         "📊 <b>VIDEO MATERIALLAR STATISTIKASI</b>\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        "━━━━━━━━━━━━━━━━━━━━\n\n"
         "❌ <b>Hozircha statistika ma'lumotlari mavjud emas.</b>\n"
         "📥 Tez orada ma'lumotlar qo'shiladi"
     )
@@ -1439,7 +1439,7 @@ def company_info_text(name: str, description: str) -> str:
     """Kompaniya asosiy ma'lumoti (tugmalarsiz)"""
     return (
         f"🏢 <b>{name.upper()}</b>\n"
-        "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n\n"
+        "➖➖➖➖➖➖➖➖➖➖➖➖\n\n"
         f"📝 {description}\n"
     )
 
@@ -1448,7 +1448,7 @@ def company_presentation_with_contact_text() -> str:
     """Prezentatsiya fayli + kontakt ma'lumoti"""
     return _(
         "👆 <b>Ko'proq ma'lumot olish uchun</b>\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        "━━━━━━━━━━━━━━━━━━━━\n"
         "💬 <b>Savol yoki takliflaringiz bo'lsa murojat qiling:</b>"
     )
 
@@ -1483,7 +1483,7 @@ def train_safety_main_text() -> str:
     """Poezdlar harakat xavfsizligi asosiy sahifa"""
     return _(
         "🚆 <b>POEZDLAR HARAKAT XAVFSIZLIGI</b>\n"
-        "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n\n"
+        "➖➖➖➖➖➖➖➖➖➖➖➖\n\n"
         "📂 <i>Kerakli bo'limni tanlang:</i>"
     )
 
@@ -1491,7 +1491,7 @@ def train_safety_no_folders_text() -> str:
     """Papkalar mavjud emas"""
     return _(
         "🚆 <b>POEZDLAR HARAKAT XAVFSIZLIGI</b>\n"
-        "➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖\n\n"
+        "➖➖➖➖➖➖➖➖➖➖➖➖\n\n"
         "❌ <b>Hozircha bo'limlar mavjud emas</b>\n"
         "📥 <i>Tez orada ma'lumotlar qo'shiladi</i>\n"
         "🔄 <i>Keyinroq qayta urinib ko'ring</i>"
@@ -1504,7 +1504,7 @@ def train_safety_folder_files_text(folder_name: str, description: str = None, fi
     if files_count == 0:
         return _(
             "📂 <b>{folder_name}</b>\n"
-            "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+            "━━━━━━━━━━━━━━━━━━━━\n\n"
             "{description}"
             "❌ <b>Bu bo'limda hozircha hujjatlar mavjud emas</b>\n"
             "📥 <i>Tez orada ma'lumotlar qo'shiladi</i>"
@@ -1515,7 +1515,7 @@ def train_safety_folder_files_text(folder_name: str, description: str = None, fi
 
     return _(
         "📂 <b>{folder_name}</b>\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+        "━━━━━━━━━━━━━━━━━━━━\n"
         "📄 <b>Jami hujjatlar:</b> <i>{files_count} ta</i>\n\n"
         "{description}"
         "📄 <b>Kerakli hujjatni tanlang:</b>"
@@ -1532,7 +1532,7 @@ def train_safety_file_info_text(folder_name: str, file_name: str, description: s
     return _(
         "📂 <b>Bo'lim:</b> {folder_name}\n"
         "📄 <b>Hujjat:</b> {file_name}\n"
-        "━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n"
+        "━━━━━━━━━━━━━━━━━━━━\n\n"
         "{description}\n"
         "✅ <i>Yuqoridagi hujjatni ko'rishingiz mumkin</i>"
     ).format(
